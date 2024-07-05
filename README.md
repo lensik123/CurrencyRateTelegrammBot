@@ -36,3 +36,10 @@ Telegram bot for fetching current currency rates, adding and checking income and
 - Java 11 or higher
 - PostgreSQL
 - Telegram Bot API token
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/telegram-currency-rates-bot.git
+   cd telegram-currency-rates-bot
