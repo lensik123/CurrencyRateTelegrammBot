@@ -60,3 +60,12 @@ Telegram bot for fetching current currency rates, adding and checking income and
    ```
    ./mvnw clean install
    ./mvnw spring-boot:run
+
+Usage
+Start a conversation with your bot on Telegram and use the following commands:
+
+/currentrates - Get the current exchange rates.
+/addincome - Add income record.
+/addspend - Add expense record.
+/checkincome - Check the total income.
+/checkspend - Check the total expenses.
