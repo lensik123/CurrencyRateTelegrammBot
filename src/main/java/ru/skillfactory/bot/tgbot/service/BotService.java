@@ -1,8 +1,10 @@
 package ru.skillfactory.bot.tgbot.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
@@ -72,38 +74,41 @@ public class BotService extends TelegramLongPollingBot {
       SendMessage response = new SendMessage();
       Long chatId = message.getChatId();
       response.setChatId(String.valueOf(chatId));
+      String messageText = message.getText();
 
-      if (START.equals(message.getText())) {
-        response.setText(StringUtils.defaultIfBlank(response.getText(), "")
-            + "Откройте меню и выберите команду");
-      } else if (CURRENT_RATES.equalsIgnoreCase(message.getText())) {
-        for (ValuteCursOnDate valuteCursOnDate : centralRussianBankService.getCurrenciesFromCbr()) {
-          response.setText(
-              StringUtils.defaultIfBlank(response.getText(), "") + valuteCursOnDate.getName()
-                  + " - " + valuteCursOnDate.getCourse() + " (номинал: "
-                  + valuteCursOnDate.getNominal() + ")\n");
-        }
-      } else if (ADD_INCOME.equalsIgnoreCase(message.getText())) {
-        response.setText("Отправьте мне сумму полученного дохода");
-      } else if (ADD_SPEND.equalsIgnoreCase(message.getText())) {
-        response.setText("Отправьте мне сумму расходов");
-      } else if (CHECK_INCOME.equalsIgnoreCase(message.getText())) {
-        if (incomeRepository.findIncomeByChatId(chatId).isPresent()) {
-          response.setText(
-              incomeRepository.findIncomeByChatId(chatId).get().getIncome().toString());
-        } else {
-          response.setText("У вас нет доходов");
-        }
-      } else if (CHECK_SPEND.equalsIgnoreCase(message.getText())) {
-        if (spendRepository.findSpendByChatId(chatId).isPresent()) {
-          response.setText(spendRepository.findSpendByChatId(chatId).get().getSpend().toString());
-        } else {
-          response.setText("У вас нет расхода");
-        }
-      } else {
-        response.setText(
-            financeService.addFinanceOperation(getPreviousCommand(chatId), message.getText(),
-                message.getChatId()));
+      switch (messageText.toLowerCase()) {
+        case START:
+          response.setText("Откройте меню и выберите команду");
+          break;
+        case CURRENT_RATES:
+          StringBuilder ratesResponse = new StringBuilder();
+          for (ValuteCursOnDate valuteCursOnDate : centralRussianBankService.getCurrenciesFromCbr()) {
+            ratesResponse.append(valuteCursOnDate.getName())
+                .append(" - ")
+                .append(valuteCursOnDate.getCourse())
+                .append(" (номинал: ")
+                .append(valuteCursOnDate.getNominal())
+                .append(")\n");
+          }
+          response.setText(ratesResponse.toString());
+          break;
+        case ADD_INCOME:
+          response.setText("Отправьте мне сумму полученного дохода");
+          break;
+        case ADD_SPEND:
+          response.setText("Отправьте мне сумму расходов");
+          break;
+        case CHECK_INCOME:
+          Optional<BigDecimal> totalIncome = incomeRepository.findTotalIncomeByChatId(chatId);
+          response.setText(totalIncome.map(BigDecimal::toString).orElse("У вас нет доходов"));
+          break;
+        case CHECK_SPEND:
+          Optional<BigDecimal> totalSpend = spendRepository.findTotalSpendByChatId(chatId);
+          response.setText(totalSpend.map(BigDecimal::toString).orElse("У вас нет расходов"));
+          break;
+        default:
+          response.setText(financeService.addFinanceOperation(getPreviousCommand(chatId), messageText, chatId));
+          break;
       }
 
       putPreviousCommand(message.getChatId(), message.getText());
