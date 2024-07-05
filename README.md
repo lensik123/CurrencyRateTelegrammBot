@@ -73,7 +73,6 @@ Start a conversation with your bot on Telegram and use the following commands:
 
 ## Project Structure
 ```
-Копировать код
 src
 ├── main
 │   ├── java
