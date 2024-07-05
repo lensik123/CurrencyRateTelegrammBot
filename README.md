@@ -45,15 +45,16 @@ Telegram bot for fetching current currency rates, adding and checking income and
    cd telegram-currency-rates-bot
 
 2. Set up PostgreSQL database and update application.properties with your database credentials:
+   ```
    spring.datasource.url=jdbc:postgresql://localhost:5432/yourdatabase
    spring.datasource.username=yourusername
    spring.datasource.password=yourpassword
    spring.jpa.hibernate.ddl-auto=update
 
-3. Update application.properties with your Telegram Bot API token:
+4. Update application.properties with your Telegram Bot API token:
    bot.name=your_tg_bot_name
    bot.api.key=your_tg_bot_token
 
-4. Build and run the application:
+5. Build and run the application:
    ./mvnw clean install
    ./mvnw spring-boot:run
