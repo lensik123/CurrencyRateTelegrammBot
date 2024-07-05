@@ -52,9 +52,11 @@ Telegram bot for fetching current currency rates, adding and checking income and
    spring.jpa.hibernate.ddl-auto=update
 
 4. Update application.properties with your Telegram Bot API token:
+   ```
    bot.name=your_tg_bot_name
    bot.api.key=your_tg_bot_token
 
 5. Build and run the application:
+   ```
    ./mvnw clean install
    ./mvnw spring-boot:run
