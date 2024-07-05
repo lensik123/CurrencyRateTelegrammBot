@@ -1,1 +1,38 @@
-# CurrencyRateTelegrammBot
+# Telegram Currency Rates Bot
+
+Telegram bot for fetching current currency rates, adding and checking income and expenses.
+
+## Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [License](#license)
+
+## Features
+
+- **Current Rates**: Get the current exchange rates for various currencies.
+- **Add Income**: Add income records.
+- **Add Spend**: Add expense records.
+- **Check Income**: Check the total income.
+- **Check Spend**: Check the total expenses.
+
+## Technologies Used
+
+- Java
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- PostgreSQL
+- Telegram Bots API
+- Lombok
+
+## Getting Started
+
+### Prerequisites
+
+- Java 11 or higher
+- PostgreSQL
+- Telegram Bot API token
