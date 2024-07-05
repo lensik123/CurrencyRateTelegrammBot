@@ -9,7 +9,6 @@ Telegram bot for fetching current currency rates, adding and checking income and
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
-- [License](#license)
 
 ## Features
 
