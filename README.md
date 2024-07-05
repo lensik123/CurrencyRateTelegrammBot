@@ -69,3 +69,34 @@ Start a conversation with your bot on Telegram and use the following commands:
 - /addspend - Add expense record.
 - /checkincome - Check the total income.
 - /checkspend - Check the total expenses.
+
+
+## Project Structure
+```
+Копировать код
+src
+├── main
+│   ├── java
+│   │   └── ru
+│   │       └── skillfactory
+│   │           └── bot
+│   │               ├── entity
+│   │               │   ├── ActiveChat.java
+│   │               │   ├── Income.java
+│   │               │   └── Spend.java
+│   │               ├── repository
+│   │               │   ├── ActiveChatRepository.java
+│   │               │   ├── IncomeRepository.java
+│   │               │   └── SpendRepository.java
+│   │               ├── service
+│   │               │   ├── BotService.java
+│   │               │   └── CentralRussianBankService.java
+│   │               └── TgbotApplication.java
+│   └── resources
+│       └── application.properties
+└── test
+    └── java
+        └── ru
+            └── skillfactory
+                └── bot
+                    └── TgbotApplicationTests.java
